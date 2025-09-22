@@ -1,12 +1,5 @@
-﻿using Core.Domains.Buildings;
-using Core.Modules.Buildings.Domain.Contracts;
+﻿using Core.Modules.Buildings.Domain.Contracts;
 using Core.Modules.Resources.Application.Dtos;
-using Information.Patterns;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Core.Modules.Resources.Domain
 {

@@ -1,11 +1,4 @@
-﻿using Core.Domains.Buildings.Actions;
-using Core.Domains.Buildings.Resources;
-using Core.Modules.Resources.Application.Dtos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Core.Modules.Resources.Application.Dtos;
 
 namespace Core.Modules.Buildings.Domain
 {
