@@ -1,6 +1,9 @@
 ﻿using Core.BuildingBlocks.Messaging;
 using Core.Modules.Buildings.Domain;
+using Core.Modules.Buildings.Domain.Contracts;
+using Core.Modules.Game.Domain.Banks;
 using Core.Modules.Game.Domain.Contracts;
+using Core.Modules.Resources.Domain.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,41 +14,36 @@ namespace Core.Modules.Game.Domain
 {
     internal class GameSession : IResourceHandler, IHumanHandler, IBuildingHandler
     {
-        private BuildingBank m_buildings;
-        private Guid m_key;
-        private ResourceBank m_bank;
-        private bool hasAccess(Guid key) => m_key.Equals(key);
+        private IBuildingRepository m_buildingRepository;
+        private IResourceRepository m_resourceRepository;
 
-        public GameSession(ISubjectCollection subjectCollection)
+        public GameSession(
+            IBuildingRepository buildingRepository,
+            IResourceRepository resourceRepository
+            )
         {
-            m_key = Guid.NewGuid();
-            m_bank = new ResourceBank(m_key);
-            m_buildings = new BuildingBank(m_key, subjectCollection);
-        }
-
-        internal IReadOnlyDictionary<string, double> Resources(Guid key)
-        {
-            return m_bank.GetAll(key);
-        }
-        internal List<Building> Buildings(Guid key)
-        {
-            return hasAccess(key) ? m_buildings.GetAll(key).Select(x => x.Value).ToList() :
-                throw new ArgumentNullException(nameof(key));
+            m_buildingRepository = buildingRepository ?? throw new ArgumentNullException(nameof(buildingRepository));
+            m_resourceRepository = resourceRepository ?? throw new ArgumentNullException(nameof(resourceRepository));
         }
 
-        IEnumerable<(string Resource, double Amount)> IResourceHandler.Resources(Guid key)
+        public IEnumerable<(string resource, double amount)> Resources()
         {
-            return m_bank.GetAll(key).Select(x => (x.Key,x.Value)).ToList();
+            return m_resourceRepository.GetAll();
+        }
+        public double AddResources(string resource, double value)
+        {
+            return m_resourceRepository.AddResources(resource, value);
         }
 
-        public double AddResources(Guid key, string resource, double value)
+        public double RemoveResources(string resource, double value)
         {
-            return m_bank.AddResources(key, resource, value);
+            return m_resourceRepository.UseResources(resource, value);
+        }
+        internal IEnumerable<Building> Buildings()
+        {
+            return m_buildingRepository.GetAllBuildings();
         }
 
-        public double RemoveResources(Guid key, string resource, double value)
-        {
-            return m_bank.RemoveResources(key, resource, value);
-        }
+
     }
 }

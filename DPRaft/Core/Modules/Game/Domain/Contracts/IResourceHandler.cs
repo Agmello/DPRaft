@@ -8,8 +8,8 @@ namespace Core.Modules.Game.Domain.Contracts
 {
     internal interface IResourceHandler
     {
-        IEnumerable<(string Resource, double Amount)> Resources(Guid key);
-        double AddResources(Guid key, string resource, double value);
-        double RemoveResources(Guid key, string resource, double value);
+        IEnumerable<(string resource, double amount)> Resources();
+        double AddResources(string resource, double value);
+        double RemoveResources(string resource, double value);
     }
 }
