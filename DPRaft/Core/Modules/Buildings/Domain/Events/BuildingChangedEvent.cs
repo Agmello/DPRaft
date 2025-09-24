@@ -1,4 +1,5 @@
-﻿using Core.SharedKernel;
+﻿using Core.Modules.Tiles.Domain;
+using Core.SharedKernel;
 
 namespace Core.Modules.Buildings.Domain.Events
 {
@@ -10,10 +11,12 @@ namespace Core.Modules.Buildings.Domain.Events
     }
     public class BuildingChangedEvent : IEvent
     {
+        public Tile Tile { get; } 
         public Building Building { get; }
         public ChangeType Change { get; }
-        public BuildingChangedEvent(Building building, ChangeType change)
+        public BuildingChangedEvent(Tile tile,Building building, ChangeType change)
         {
+            Tile = tile;
             Building = building;
             Change = change;
         }

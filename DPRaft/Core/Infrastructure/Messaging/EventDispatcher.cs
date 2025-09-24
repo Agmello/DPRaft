@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Core.Infrastructure.Messaging
 {
-    internal class EventDispatcher : IEventDispatcher
+    internal class  EventDispatcher : IEventDispatcher
     {
         private readonly IServiceScopeFactory _scopeFactory;
         private static readonly ConcurrentDictionary<Type, Func<IServiceProvider, IEvent, CancellationToken, Task>> _invokers = new();
@@ -37,7 +37,12 @@ namespace Core.Infrastructure.Messaging
                 await invoker(scope.ServiceProvider, e, ct);
             }
         }
-
+        public async Task DispatchAsync(IEvent @event, CancellationToken ct = default)
+        {
+            var invoker = _invokers.GetOrAdd(@event.GetType(), BuildInvoker);
+            using var scope = _scopeFactory.CreateScope();
+            await invoker(scope.ServiceProvider, @event, ct);
+        }
         // builds a closed generic invoker: (sp, e, ct) => foreach (h in sp.GetServices<IEventHandler<T>>()) h.HandleAsync((T)e, ct)
         private static Func<IServiceProvider, IEvent, CancellationToken, Task> BuildInvoker(Type eventType)
         {

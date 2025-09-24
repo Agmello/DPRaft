@@ -7,11 +7,13 @@ using System.Threading.Tasks;
 
 namespace Core.Modules.Game.Domain
 {
-    internal class ResourceBank
+    internal class ResourceBank : BankBase
     {
         private Dictionary<string, double> m_bank = new();
-        private Guid m_key;
-        private bool hasAccess(Guid key) => m_key.Equals(key);
+
+        internal ResourceBank(Guid key) : base(key)
+        {
+        }
         internal IReadOnlyDictionary<string, double> GetAll(Guid key)
         {
             return hasAccess(key) ? m_bank :
@@ -36,7 +38,6 @@ namespace Core.Modules.Game.Domain
                 m_bank[resource] -= value;
             else
                 m_bank.Add(resource, -value);
-
             return m_bank[resource];
         }
     }

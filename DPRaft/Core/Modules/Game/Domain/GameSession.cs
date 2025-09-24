@@ -1,4 +1,5 @@
-﻿using Core.Modules.Buildings.Domain;
+﻿using Core.BuildingBlocks.Messaging;
+using Core.Modules.Buildings.Domain;
 using Core.Modules.Game.Domain.Contracts;
 using System;
 using System.Collections.Generic;
@@ -10,17 +11,25 @@ namespace Core.Modules.Game.Domain
 {
     internal class GameSession : IResourceHandler, IHumanHandler, IBuildingHandler
     {
-        private List<Building> m_buildings = new();
+        private BuildingBank m_buildings;
         private Guid m_key;
-        private ResourceBank m_bank = new();
+        private ResourceBank m_bank;
         private bool hasAccess(Guid key) => m_key.Equals(key);
+
+        public GameSession(ISubjectCollection subjectCollection)
+        {
+            m_key = Guid.NewGuid();
+            m_bank = new ResourceBank(m_key);
+            m_buildings = new BuildingBank(m_key, subjectCollection);
+        }
+
         internal IReadOnlyDictionary<string, double> Resources(Guid key)
         {
             return m_bank.GetAll(key);
         }
         internal List<Building> Buildings(Guid key)
         {
-            return hasAccess(key) ? m_buildings :
+            return hasAccess(key) ? m_buildings.GetAll(key).Select(x => x.Value).ToList() :
                 throw new ArgumentNullException(nameof(key));
         }
 
