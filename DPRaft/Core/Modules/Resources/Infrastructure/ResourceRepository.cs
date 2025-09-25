@@ -38,7 +38,7 @@ namespace Core.Modules.Resources.Infrastructure
 
         public double AddResources(string resource, double value)
         {
-            throw new NotImplementedException();
+            return m_resourceBank.AddResources(m_key, resource, value); 
         }
     }
 }

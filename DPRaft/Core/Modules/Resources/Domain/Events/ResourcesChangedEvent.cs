@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Core.Modules.Resources.Domain.Events
 {
-    internal class ResourcesChangedEvent : IEvent
+    public class ResourcesChangedEvent : IEvent
     {
         public double NewAmount { get; }
         public double AmountChanged { get; }
