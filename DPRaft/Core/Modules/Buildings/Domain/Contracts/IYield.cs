@@ -2,8 +2,16 @@
 
 namespace Core.Modules.Buildings.Domain.Contracts
 {
-    public interface IYield
+    public interface IProducer
     {
-        public IEnumerable<ResourceDto> Get();
+        public IEnumerable<ResourceDto> CreateProduction();
+    }
+    public interface IConsumer
+    {
+        public IEnumerable<ResourceDto> CreateConsumption();
+    }
+    public interface IYield : IProducer, IConsumer
+    {
+        public IEnumerable<ResourceDto> CreateYield();
     }
 }

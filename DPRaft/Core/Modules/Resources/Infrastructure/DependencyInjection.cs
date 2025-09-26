@@ -1,4 +1,6 @@
-﻿using Core.Modules.Resources.Domain.Contracts;
+﻿using Core.Modules.Resources.Application.Contracts;
+using Core.Modules.Resources.Application.Services;
+using Core.Modules.Resources.Domain.Contracts;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -16,6 +18,8 @@ namespace Core.Modules.Resources.Infrastructure
             // Example:
             // services.AddSingleton<IResourceService, ResourceService>();
             services.AddSingleton<IResourceRepository, ResourceRepository>();
+            services.AddSingleton<IYieldComposite, YieldComposite>();
+            services.AddSingleton<IResourceMediator, ResourceMediator>();
 
         }
     }

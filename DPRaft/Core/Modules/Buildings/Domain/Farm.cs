@@ -3,18 +3,27 @@ using Core.Modules.Resources.Application.Dtos;
 
 namespace Core.Modules.Buildings.Domain
 {
-    internal class Farm : Building, IYield
+    internal class Farm : ProductionBuilding
     {
         private static string m_name = "Farm";
         public override string Name => m_name;
+        protected double m_yieldMultiplier { get; set; } = 1.0;
 
         protected override UpgradeInfo[] Upgrades => [
             ];
 
-        private double YieldModifier() => 1.0;
-        public IEnumerable<ResourceDto> Get()
+        protected override ResourceDto[] m_productions => [
+                new ResourceDto("Food", 1.0)
+            ];
+
+        public override IEnumerable<ResourceDto> CreateProduction()
         {
-            return [new ResourceDto("Food", 1.0 * YieldModifier())];
+            throw new NotImplementedException();
         }
+        public override IEnumerable<ResourceDto> UseResources()
+        {
+            throw new NotImplementedException();
+        }
+        
     }
 }
