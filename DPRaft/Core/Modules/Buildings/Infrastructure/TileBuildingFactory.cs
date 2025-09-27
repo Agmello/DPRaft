@@ -13,7 +13,7 @@ namespace Core.Modules.Buildings.Infrastructure
         public Building Create(string key) => key switch
         {
             //"House" => new House(),
-            //"Farm" => new Farm(),
+            "Farm" => new Farm(),
             //"LumberMill" => new LumberMill(),
             //"Quarry" => new Quarry(),
             //"Mine" => new Mine(),

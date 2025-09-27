@@ -20,7 +20,7 @@ namespace Core.Modules.Tiles.Domain
         {
             // Logic to destroy the tile
         }
-        
+        public Tile() { }
         internal Tile(int x, int y)
         {
             X = x;

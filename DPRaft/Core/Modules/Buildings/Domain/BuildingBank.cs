@@ -84,6 +84,8 @@ namespace Core.Modules.Buildings.Domain
             if (tile == null)
                 throw new ArgumentNullException(nameof(tile));
             m_eventPublisher.Publish(new BuildingChangedEvent(tile, building, type));
+            if (building is ProductionBuilding productionBuilding)
+                m_eventPublisher.Publish(new YieldBuildingEvent(productionBuilding.Name));
         }
     }
 }

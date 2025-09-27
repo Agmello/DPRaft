@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Core.Modules.Buildings.Domain.Contracts
 {
-    internal interface IBuildingRepository
+    public interface IBuildingRepository
     {
         public IEnumerable<Building> GetAllBuildings();
         public IEnumerable<(Tile tile, Building building)> GetAll();

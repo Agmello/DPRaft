@@ -12,7 +12,7 @@ namespace Core.Modules.Buildings.Domain.Events
     public class BuildingChangedEvent : IEvent
     {
         public Tile Tile { get; } 
-        public Building Building { get; }
+        public virtual Building Building { get; }
         public ChangeType Change { get; }
         public BuildingChangedEvent(Tile tile,Building building, ChangeType change)
         {
