@@ -14,7 +14,7 @@ namespace Core.Infrastructure.Messaging.Observer
 {
     internal class EventObserver : IEventObserver, IEventDispatcher
     {
-        private readonly ConcurrentDictionary<Type, object> m_subjects = new();
+        private readonly ConcurrentDictionary<Type, ISubjectSink> m_subjects = new();
         public IDisposable SubscribeSafe<TEvent>(Action<TEvent> onNext) where TEvent : class, IEvent
         {
             return GetEvent<TEvent>().SubscribeSafe(new AnonymousObserver<TEvent>(onNext));
@@ -22,14 +22,16 @@ namespace Core.Infrastructure.Messaging.Observer
 
         public IObservable<TEvent> GetEvent<TEvent>() where TEvent : class, IEvent
         {
-            var subject = (ISubject<TEvent>)m_subjects.GetOrAdd(typeof(TEvent), _ => new System.Reactive.Subjects.Subject<TEvent>());
-            return subject.AsObservable();
+            var subject = m_subjects.GetOrAdd(typeof(TEvent), _ => new SubjectSink<TEvent>(new Subject<TEvent>()));
+            return subject.AsObservable<TEvent>().AsObservable();
         }
 
         public void Dispatch<TEvent>(TEvent @event) where TEvent : class, IEvent
         {
-            var subject = (ISubject<TEvent>)m_subjects.GetOrAdd(typeof(TEvent), _ => new System.Reactive.Subjects.Subject<TEvent>());
-            subject.OnNext(@event);
+            m_subjects.Where(kv => kv.Key.IsAssignableFrom(typeof(TEvent)))
+                      .Select(kv => kv.Value)
+                      .ToList()
+                      .ForEach(f => f.OnNext(@event));
         }
     }
 }

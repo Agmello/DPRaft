@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Core.Modules.Buildings.Infrastructure
 {
-    internal static class BuildingsDependencyInjection
+    public static class BuildingsDependencyInjection
     {
-        internal static void AddModule(this IServiceCollection services)
+        public static void AddModule(this IServiceCollection services)
         {
             // Register services related to the Buildings module here
             // Example:
