@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace Core.BuildingBlocks.Messaging.Observer
 {
-    internal interface IEventDispatcher
+    public interface IEventDispatcher
     {
         void Dispatch<TEvent>(TEvent @event) where TEvent : class, IEvent;
+        void Dispatch(Type type, IEvent @event);
     }
 }

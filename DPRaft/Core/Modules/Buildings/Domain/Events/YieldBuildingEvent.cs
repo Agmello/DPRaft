@@ -1,4 +1,5 @@
-﻿using Core.SharedKernel;
+﻿using Core.Modules.Tiles.Domain;
+using Core.SharedKernel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,13 @@ namespace Core.Modules.Buildings.Domain.Events
 {
     public class YieldBuildingEvent : BuildingChangedEvent
     {
-        public string Building { get; }
         public YieldBuildingEvent(string b) :
             base(new Tiles.Domain.Tile(), null, ChangeType.Added)
         {
-            Building = b;
+        }
+        public YieldBuildingEvent(Tile t, Building b, ChangeType ct) :
+            base(t, b, ct)
+        {
         }
     }
 }

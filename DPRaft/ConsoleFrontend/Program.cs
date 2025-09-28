@@ -19,7 +19,6 @@ namespace ConsoleFrontend
             var resourceRepository = host.Services.GetService<IResourceRepository>();
             resourceRepository.AddResources("Wood", 25d);
 
-            observer.SubscribeSafe<ProductionBuildingChangedEvent>(ProductionBuilding);
             observer.SubscribeSafe<BuildingChangedEvent>(Building);
             observer.SubscribeSafe<YieldBuildingEvent>(YieldBuilding);
 
@@ -34,10 +33,6 @@ namespace ConsoleFrontend
             string resource = $"Resource: {@event.Resource} changed to {@event.NewAmount} (Change: {@event.AmountChanged})";
             Console.WriteLine(resource);
 
-        }
-        static void ProductionBuilding(ProductionBuildingChangedEvent @event)
-        {
-            Console.WriteLine($"Production building event: {@event.Building.Name}");
         }
         static void Building(BuildingChangedEvent @event)
         {

@@ -1,14 +1,9 @@
 ﻿using Core.BuildingBlocks.Messaging.Observer;
 using Core.SharedKernel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Core.Infrastructure.Messaging.Observer
 {
-    internal class EventPublisher : IEventPublisher
+    public class EventPublisher : IEventPublisher
     {
         IEventDispatcher m_eventDispatcher;
 
@@ -20,6 +15,10 @@ namespace Core.Infrastructure.Messaging.Observer
         public void Publish<TEvent>(TEvent @event) where TEvent : class, IEvent
         {
             m_eventDispatcher.Dispatch(@event);
+        }
+        public void Publish(Type type, IEvent @event)
+        {
+            m_eventDispatcher.Dispatch(type, @event);
         }
     }
 }

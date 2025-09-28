@@ -1,14 +1,9 @@
 ﻿using Core.BuildingBlocks.Messaging.Observer;
 using Core.SharedKernel;
-using System.Reactive.Subjects;
-using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Reactive.Linq;
 using System.Reactive;
+using System.Reactive.Linq;
+using System.Reactive.Subjects;
 
 namespace Core.Infrastructure.Messaging.Observer
 {
@@ -27,11 +22,15 @@ namespace Core.Infrastructure.Messaging.Observer
         }
 
         public void Dispatch<TEvent>(TEvent @event) where TEvent : class, IEvent
+            => DispatchSubjects(typeof(TEvent), @event);
+        public void Dispatch(Type type, IEvent @event)
+            => DispatchSubjects(type, @event);
+        private void DispatchSubjects(Type type, IEvent @event)
         {
-            m_subjects.Where(kv => kv.Key.IsAssignableFrom(typeof(TEvent)))
-                      .Select(kv => kv.Value)
-                      .ToList()
-                      .ForEach(f => f.OnNext(@event));
+            m_subjects.Where(kv => kv.Key.IsAssignableFrom(type))
+                .Select(kv => kv.Value)
+                  .ToList()
+                  .ForEach(f => f.OnNext(@event));
         }
     }
 }

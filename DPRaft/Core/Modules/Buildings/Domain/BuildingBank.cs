@@ -1,14 +1,9 @@
-﻿using Core.BuildingBlocks.Messaging;
-using Core.BuildingBlocks.Messaging.Observer;
+﻿using Core.BuildingBlocks.Messaging.Observer;
 using Core.Modules.Buildings.Domain.Contracts;
 using Core.Modules.Buildings.Domain.Events;
+using Core.Modules.Buildings.Infrastructure;
 using Core.Modules.Game.Domain.Banks;
 using Core.Modules.Tiles.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Core.Modules.Buildings.Domain
 {
@@ -83,9 +78,7 @@ namespace Core.Modules.Buildings.Domain
                 throw new ArgumentNullException(nameof(building));
             if (tile == null)
                 throw new ArgumentNullException(nameof(tile));
-            m_eventPublisher.Publish(new BuildingChangedEvent(tile, building, type));
-            if (building is ProductionBuilding productionBuilding)
-                m_eventPublisher.Publish(new YieldBuildingEvent(productionBuilding.Name));
+            BuildingEventPublisher.Create(m_eventPublisher, tile, building, type);
         }
     }
 }
