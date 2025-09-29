@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 namespace UnitTests.CoreTests.Modules.Buildings.EventTests
 {
 
-    public class BuildingEventTestsBase : TestBase
+    public class BuildingEventTestsBase : BuildingTestBase
     {
         List<string> TriggeredMethods = new List<string>();
         IEventObserver m_observer;
@@ -16,11 +16,11 @@ namespace UnitTests.CoreTests.Modules.Buildings.EventTests
         public void EventTriggerBase()
         {
             // Arrange
-            var factory = ServiceProvider.GetService<Core.Modules.Buildings.Domain.Contracts.ITileBuildingFactory>();
+            var factory = ServiceProvider.GetService<ITileBuildingFactory>();
             var repo = ServiceProvider.GetService<IBuildingRepository>();
 
             m_observer.SubscribeSafe<BuildingChangedEvent>(BuildingEventRecieved);
-            m_observer.SubscribeSafe<YieldBuildingEvent>(ProductionBuildingEventRecieved);
+            m_observer.SubscribeSafe<ResourceBuildingEvent>(ProductionBuildingEventRecieved);
             // Act
             var building = factory.Create("Farm");
             repo.AddBuilding(new Core.Modules.Tiles.Domain.Tile(), building);
@@ -32,19 +32,19 @@ namespace UnitTests.CoreTests.Modules.Buildings.EventTests
         [Fact]
         public void EventTriggeredByTemplate()
         {
-            m_observer.SubscribeSafe<YieldBuildingEvent>(ProductionBuildingEventRecieved);
+            m_observer.SubscribeSafe<ResourceBuildingEvent>(ProductionBuildingEventRecieved);
             var publisher = ServiceProvider.GetService<IEventPublisher>();
 
-            publisher.Publish(new YieldBuildingEvent("Farm"));
+            publisher.Publish(new ResourceBuildingEvent("Farm"));
             Assert.Contains("ProductionBuildingEventRecieved", TriggeredMethods);
         }
         [Fact]
         public void EventTriggeredByType()
         {
-            m_observer.SubscribeSafe<YieldBuildingEvent>(ProductionBuildingEventRecieved);
+            m_observer.SubscribeSafe<ResourceBuildingEvent>(ProductionBuildingEventRecieved);
             var publisher = ServiceProvider.GetService<IEventPublisher>();
 
-            publisher.Publish(typeof(YieldBuildingEvent), new YieldBuildingEvent("Farm"));
+            publisher.Publish(typeof(ResourceBuildingEvent), new ResourceBuildingEvent("Farm"));
             Assert.Contains("ProductionBuildingEventRecieved", TriggeredMethods);
         }
 
@@ -52,7 +52,7 @@ namespace UnitTests.CoreTests.Modules.Buildings.EventTests
         {
             TriggeredMethod();
         }
-        private void ProductionBuildingEventRecieved(YieldBuildingEvent @event)
+        private void ProductionBuildingEventRecieved(ResourceBuildingEvent @event)
         {
             TriggeredMethod();
         }
@@ -62,14 +62,9 @@ namespace UnitTests.CoreTests.Modules.Buildings.EventTests
         }
 
 
-        protected override void SetupData()
+        protected override void SetupBuildingData()
         {
             m_observer = ServiceProvider.GetService<IEventObserver>();
-        }
-
-        protected override void SetupServices(IServiceCollection services)
-        {
-            Core.Infrastructure.DependencyInjection.AddTestInfrastructure(services, "Buildings", true);
         }
     }
 }

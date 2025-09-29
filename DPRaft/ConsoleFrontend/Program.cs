@@ -20,7 +20,7 @@ namespace ConsoleFrontend
             resourceRepository.AddResources("Wood", 25d);
 
             observer.SubscribeSafe<BuildingChangedEvent>(Building);
-            observer.SubscribeSafe<YieldBuildingEvent>(YieldBuilding);
+            observer.SubscribeSafe<ResourceBuildingEvent>(YieldBuilding);
 
             var buildingRepository = host.Services.GetService<IBuildingRepository>();
             var tileFactory = host.Services.GetService<ITileBuildingFactory>();
@@ -38,7 +38,7 @@ namespace ConsoleFrontend
         {
             Console.WriteLine($"Building event: {@event.Building.Name}");
         }
-        static void YieldBuilding(YieldBuildingEvent @event)
+        static void YieldBuilding(ResourceBuildingEvent @event)
         {
             Console.WriteLine($"Yield Building event: {@event.Building}");
         }

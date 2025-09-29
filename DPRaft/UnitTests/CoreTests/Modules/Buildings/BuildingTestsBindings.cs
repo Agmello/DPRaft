@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Core.Modules.Buildings.Infrastructure;
 using Core.Infrastructure;
+using Core.Modules.Buildings.Domain;
 
 namespace UnitTests.CoreTests.Modules.Buildings
 {

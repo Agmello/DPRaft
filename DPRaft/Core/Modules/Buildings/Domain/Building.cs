@@ -6,7 +6,7 @@ namespace Core.Modules.Buildings.Domain
     {
         abstract public string Name { get; }
         //protected abstract ResourceDto[] m_outputs { get; }
-        protected abstract UpgradeInfo[] Upgrades { get; }
+        protected virtual UpgradeInfo[] Upgrades => [];
         
         //public IReadOnlyList<ResourceDto> Outputs => m_outputs;
         //public IReadOnlyList<UpgradeInfo> AvailableUpgrades => Upgrades;
