@@ -66,5 +66,11 @@ namespace UnitTests.CoreTests.Modules.Buildings.EventTests
         {
             m_observer = ServiceProvider.GetService<IEventObserver>();
         }
+
+        protected override void SetupServices(IServiceCollection services)
+        {
+            SetupEventHandlers(services);
+            base.SetupServices(services);
+        }
     }
 }

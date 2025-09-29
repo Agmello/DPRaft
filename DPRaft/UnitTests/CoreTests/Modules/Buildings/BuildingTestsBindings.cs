@@ -17,7 +17,7 @@ namespace UnitTests.CoreTests.Modules.Buildings
         {
             // This method is intentionally left blank.
             // Its purpose is to ensure that the compiler includes this file in the build.
-            DependencyInjection.AddTestInfrastructure(services, "building", true);
+            //DependencyInjection.AddTestInfrastructure(services, "building", true);
         }
     }
 }

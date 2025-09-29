@@ -5,11 +5,11 @@ namespace Core.Modules.Buildings.Domain.Events
     public class ResourceBuildingEvent : BuildingChangedEvent
     {
         public ResourceBuildingEvent(string b) :
-            base(new Tile(), null, ChangeType.Added)
+            base(new Tile(), null, ChangeType.Added, null)
         {
         }
-        public ResourceBuildingEvent(Tile t, Building b, ChangeType ct) :
-            base(t, b, ct)
+        public ResourceBuildingEvent(Tile t, Building b, ChangeType ct, Building? newBuilding = null) :
+            base(t, b, ct, newBuilding)
         {
         }
     }

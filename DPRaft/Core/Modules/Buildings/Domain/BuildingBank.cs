@@ -60,7 +60,7 @@ namespace Core.Modules.Buildings.Domain
             {
                 var oldBuilding = m_bank[tile];
                 m_bank[tile] = building;
-                NotifyBuildingChange(building, tile, ChangeType.Updated);
+                NotifyBuildingChange(building, tile, ChangeType.Upgraded);
                 return building;
             }
             return null;

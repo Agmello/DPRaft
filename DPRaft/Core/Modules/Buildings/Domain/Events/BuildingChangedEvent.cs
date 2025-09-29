@@ -7,18 +7,22 @@ namespace Core.Modules.Buildings.Domain.Events
     {
         Added,
         Removed,
-        Updated
+        Upgrading,
+        Upgraded,
+        UprgadeStopped
     }
     public class BuildingChangedEvent : IEvent
     {
         public Tile Tile { get; } 
         public virtual Building Building { get; }
+        public virtual Building? NewBuilding { get; } 
         public ChangeType Change { get; }
-        public BuildingChangedEvent(Tile tile,Building building, ChangeType change)
+        public BuildingChangedEvent(Tile tile,Building building, ChangeType change, Building? newBuilding = null)
         {
             Tile = tile;
             Building = building;
             Change = change;
+            NewBuilding = newBuilding;
         }
     }
 }

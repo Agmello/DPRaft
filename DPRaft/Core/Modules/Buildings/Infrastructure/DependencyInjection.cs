@@ -1,4 +1,5 @@
-﻿using Core.Modules.Buildings.Domain.Contracts;
+﻿using Core.Modules.Buildings.Application.Services;
+using Core.Modules.Buildings.Domain.Contracts;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,7 @@ namespace Core.Modules.Buildings.Infrastructure
             // services.AddSingleton<IBuildingService, BuildingService>();
             services.AddSingleton<ITileBuildingFactory, TileBuildingFactory>();
             services.AddSingleton<IBuildingRepository, BuildingRepository>();
+            services.AddSingleton<UpgradeComposite>();
         }
     }
 }

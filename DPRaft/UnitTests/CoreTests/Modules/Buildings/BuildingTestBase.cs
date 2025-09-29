@@ -1,13 +1,6 @@
 ﻿using Core.Modules.Buildings.Domain;
+using Core.Modules.Buildings.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace UnitTests.CoreTests.Modules.Buildings
 {
@@ -30,7 +23,7 @@ namespace UnitTests.CoreTests.Modules.Buildings
         }
         protected override void SetupServices(IServiceCollection services)
         {
-            Core.Infrastructure.DependencyInjection.AddTestInfrastructure(services, "Buildings", true);
+                BuildingsDependencyInjection.AddModule(services);
         }
         protected abstract void SetupBuildingData();
     }
