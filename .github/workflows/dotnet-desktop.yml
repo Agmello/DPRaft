@@ -47,7 +47,9 @@ on:
 jobs:
 
   build:
-
+    defaults:
+      run:
+        working-directory: ./DPRaft
     strategy:
       matrix:
         configuration: [Debug, Release]
