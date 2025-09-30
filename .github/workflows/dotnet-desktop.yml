@@ -15,8 +15,8 @@ jobs:
     runs-on: ubuntu-latest  # windows-latest also works; ubuntu is faster for plain .NET
     env:
       # Adjust paths to match your repo layout
-      Solution_Name: DpRaft/DpRaft.sln
-      Console_Project_Path: DpRaft/ConsoleFrontend/ConsoleFrontend.csproj
+      Solution_Name: DPRaft/DPRaft.sln
+      Console_Project_Path: DPRaft/ConsoleFrontend/ConsoleFrontend.csproj
 
     steps:
       - name: Checkout
