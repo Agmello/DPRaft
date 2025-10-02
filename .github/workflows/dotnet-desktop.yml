@@ -1,0 +1,64 @@
+name: .NET Console CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        configuration: [Debug, Release]
+
+    runs-on: ubuntu-latest  # windows-latest also works; ubuntu is faster for plain .NET
+    env:
+      # Adjust paths to match your repo layout
+      Solution_Name: DPRaft/DPRaft.sln
+      Console_Project_Path: DPRaft/ConsoleFrontend/ConsoleFrontend.csproj
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Show projects (diagnostics)
+        run: |
+          echo "Workspace: $GITHUB_WORKSPACE"
+          find . -type f -name "*.sln" -o -name "*.csproj" | sort
+
+      - name: Restore
+        run: dotnet restore "$Solution_Name"
+
+      - name: Build
+        run: dotnet build "$Solution_Name" -c ${{ matrix.configuration }} --no-restore
+
+      # If you have test projects (e.g., *Tests.csproj), this will run them.
+      - name: Test
+        run: |
+          shopt -s nullglob
+          tests=( **/*Tests.csproj )
+          if [ ${#tests[@]} -gt 0 ]; then
+            for t in "${tests[@]}"; do
+              echo "Running tests in $t"
+              dotnet test "$t" -c ${{ matrix.configuration }} --no-build --logger trx
+            done
+          else
+            echo "No *Tests.csproj found — skipping."
+          fi
+
+      - name: Publish Console app
+        run: dotnet publish "$Console_Project_Path" -c ${{ matrix.configuration }} -o ./artifacts/console
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ConsoleFrontend-${{ matrix.configuration }}
+          path: artifacts/console
