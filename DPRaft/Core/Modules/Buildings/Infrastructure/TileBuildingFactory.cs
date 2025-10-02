@@ -1,4 +1,5 @@
 ﻿using Core.Modules.Buildings.Domain;
+using Core.Modules.Buildings.Domain.Buildings;
 using Core.Modules.Buildings.Domain.Buildings.ProdRes;
 using Core.Modules.Buildings.Domain.Buildings.Production;
 using Core.Modules.Buildings.Domain.Buildings.Residential;
@@ -34,6 +35,8 @@ namespace Core.Modules.Buildings.Infrastructure
             "Hut" => new Hut(),
             "Cabin" => new Cabin(),
             "Lodge" => new Lodge(),
+            // 
+            "Empty" => new EmptyBuilding(),
             _ => throw new ArgumentException($"Unknown building key: {key}")
         };
     }

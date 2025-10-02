@@ -17,7 +17,7 @@ namespace ConsoleFrontend
             observer.SubscribeSafe<ResourcesChangedEvent>(ResourceChanged);
 
             var resourceRepository = host.Services.GetService<IResourceRepository>();
-            resourceRepository.AddResources("Wood", 25d);
+            resourceRepository.AddResource("Wood", 25d);
 
             observer.SubscribeSafe<BuildingChangedEvent>(Building);
             observer.SubscribeSafe<ResourceBuildingEvent>(YieldBuilding);

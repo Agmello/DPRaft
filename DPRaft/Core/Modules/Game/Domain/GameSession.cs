@@ -32,12 +32,12 @@ namespace Core.Modules.Game.Domain
         }
         public double AddResources(string resource, double value)
         {
-            return m_resourceRepository.AddResources(resource, value);
+            return m_resourceRepository.AddResource(resource, value);
         }
 
         public double RemoveResources(string resource, double value)
         {
-            return m_resourceRepository.UseResources(resource, value);
+            return m_resourceRepository.UseResource(resource, value);
         }
         internal IEnumerable<Building> Buildings()
         {

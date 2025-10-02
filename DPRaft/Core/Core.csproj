@@ -12,9 +12,11 @@
 
   <ItemGroup>
     <Folder Include="Modules\Bank\" />
+    <Folder Include="Modules\Game\Application\Services\" />
   </ItemGroup>
 	<ItemGroup>
 		<InternalsVisibleTo Include="UnitTests" />
+		<InternalsVisibleTo Include="DynamicProxyGenAssembly2" />
 	</ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.9" />

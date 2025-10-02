@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace Core.Modules.Buildings.Application.Services
 {
-    internal enum UpgradeStatus
+    public enum UpgradeStatus
     {
         None,
         Upgrading,
         Stopped,
         Aborted,
-        Done
+        Done,
+        Failed
     }
 }

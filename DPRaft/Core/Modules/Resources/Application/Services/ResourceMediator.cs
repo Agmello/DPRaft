@@ -41,21 +41,21 @@ namespace Core.Modules.Resources.Application.Services
 
         public void ProduceResource(string resourceName, double amount)
         {
-            m_resourceRepository.AddResources(resourceName, amount);
+            m_resourceRepository.AddResource(resourceName, amount);
         }
 
         public void ProduceResources(IEnumerable<(string ResourceName, double Amount)> resources)
         {
             foreach(var resource in resources)
             {
-                m_resourceRepository.AddResources(resource.ResourceName, resource.Amount);
+                m_resourceRepository.AddResource(resource.ResourceName, resource.Amount);
             }
         }
         public bool TryConsumeResource(string resourceName, double amount)
         {
             if(!CanConsumeResource(resourceName, amount))
                 return false;
-            m_resourceRepository.UseResources(resourceName, amount);
+            m_resourceRepository.UseResource(resourceName, amount);
             return true;
         }
 
@@ -65,7 +65,7 @@ namespace Core.Modules.Resources.Application.Services
                 return false;
             foreach(var resource in resources)
             {
-                m_resourceRepository.UseResources(resource.ResourceName, resource.Amount);
+                m_resourceRepository.UseResource(resource.ResourceName, resource.Amount);
             }
             return true;
         }

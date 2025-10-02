@@ -9,7 +9,7 @@ namespace Core.Modules.Buildings.Domain.Events
         Removed,
         Upgrading,
         Upgraded,
-        UprgadeStopped
+        UpgradeStopped
     }
     public class BuildingChangedEvent : IEvent
     {
