@@ -80,6 +80,14 @@ namespace Core.Modules.Buildings.Domain
             }
             return null;
         }
+        internal void AddBuildingSpot(Guid key, Tile tile)
+        {
+            if (!hasAccess(key))
+                throw new ArgumentNullException(nameof(key));
+            var building = m_factory.CreateEmptyBuilding();
+            m_bank[tile] = building;
+            NotifyBuildingChange(building, tile, ChangeType.Added);
+        }
         internal void RemoveBuildingSpot(Guid key, Tile tile)
         {
             if (!hasAccess(key))

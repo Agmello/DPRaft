@@ -17,6 +17,10 @@ namespace Core.Modules.Game.Domain
         private IBuildingRepository m_buildingRepository;
         private IResourceRepository m_resourceRepository;
 
+        public IResourceHandler ResourceHandler { get; }
+        public IHumanHandler HumanHandler { get; }
+        public IBuildingHandler BuildingHandler { get; }
+
         public GameSession(
             IBuildingRepository buildingRepository,
             IResourceRepository resourceRepository
@@ -30,7 +34,7 @@ namespace Core.Modules.Game.Domain
         {
             return m_resourceRepository.GetAll();
         }
-        public double AddResources(string resource, double value)
+        /*public double AddResources(string resource, double value)
         {
             return m_resourceRepository.AddResource(resource, value);
         }
@@ -38,7 +42,7 @@ namespace Core.Modules.Game.Domain
         public double RemoveResources(string resource, double value)
         {
             return m_resourceRepository.UseResource(resource, value);
-        }
+        }*/
         internal IEnumerable<Building> Buildings()
         {
             return m_buildingRepository.GetAllBuildings();

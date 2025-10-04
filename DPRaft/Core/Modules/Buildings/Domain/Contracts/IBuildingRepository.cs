@@ -17,6 +17,7 @@ namespace Core.Modules.Buildings.Domain.Contracts
         public void AddBuilding(Tile tile, Building building);
         public Building DestroyBuilding(Tile tile);
         public void SetBuilding(Tile tile, Building building);
+        public void AddBuildingSpot(Tile tile);
         public void RemoveBuildingSpot(Tile tile);
         public Tile GetTileFromBuilding(Building building);
         internal UpgradeOperation StartUpgrade(Building building, int upgrade);

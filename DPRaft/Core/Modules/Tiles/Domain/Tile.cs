@@ -10,16 +10,6 @@ namespace Core.Modules.Tiles.Domain
     {
         public int X { get; internal set; }
         public int Y { get; internal set; }
-        
-
-        public void Clear()
-        {
-            // Logic to clear the tile
-        }
-        public void Destroy()
-        {
-            // Logic to destroy the tile
-        }
         public Tile() { }
         internal Tile(int x, int y)
         {

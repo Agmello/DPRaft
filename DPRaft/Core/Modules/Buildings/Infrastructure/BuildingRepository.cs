@@ -48,6 +48,10 @@ namespace Core.Modules.Buildings.Infrastructure
         {
             m_buildingBank.SetBuilding(m_key, tile, building);
         }
+        public void AddBuildingSpot(Tile tile)
+        {
+            m_buildingBank.AddBuildingSpot(m_key, tile);
+        }
         public void RemoveBuildingSpot(Tile tile)
         {
             m_buildingBank.RemoveBuildingSpot(m_key, tile);

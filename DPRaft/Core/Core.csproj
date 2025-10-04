@@ -13,6 +13,7 @@
   <ItemGroup>
     <Folder Include="Modules\Bank\" />
     <Folder Include="Modules\Game\Application\Services\" />
+    <Folder Include="Modules\Tiles\Application\" />
   </ItemGroup>
 	<ItemGroup>
 		<InternalsVisibleTo Include="UnitTests" />
