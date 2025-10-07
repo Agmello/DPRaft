@@ -1,4 +1,6 @@
 ﻿using Core.BuildingBlocks.Messaging.Observer;
+using Core.Infrastructure.Logger;
+using Core.Infrastructure.Logger.Contract;
 using Core.Infrastructure.Messaging.Observer;
 using Core.Modules.Buildings.Domain;
 using Core.Modules.Buildings.Infrastructure;
@@ -19,7 +21,7 @@ namespace Core.Infrastructure
             services.AddSingleton<IEventObserver, EventObserver>();
             services.AddSingleton<IEventPublisher, EventPublisher>();
             services.AddSingleton<IEventDispatcher>(x => x.GetService<IEventObserver>() as EventObserver);
-
+            services.AddSingleton<ILogger, Logger.Logger>();
             ResourceDependencyInjection.AddModule(services);
             BuildingsDependencyInjection.AddModule(services);
         }

@@ -1,4 +1,5 @@
-﻿using Core.Modules.Tiles.Domain;
+﻿using Core.Modules.Resources.Domain.Events;
+using Core.Modules.Tiles.Domain;
 using Core.SharedKernel;
 
 namespace Core.Modules.Buildings.Domain.Events
@@ -11,7 +12,7 @@ namespace Core.Modules.Buildings.Domain.Events
         Upgraded,
         UpgradeStopped
     }
-    public class BuildingChangedEvent : IEvent
+    public class BuildingChangedEvent : Event
     {
         public Tile Tile { get; } 
         public virtual Building Building { get; }
@@ -23,6 +24,18 @@ namespace Core.Modules.Buildings.Domain.Events
             Building = building;
             Change = change;
             NewBuilding = newBuilding;
+        }
+        public override string LogMessage()
+        {
+            var ret =  $"{nameof(BuildingChangedEvent)}: {Building.Name} @ {Tile?.X},{Tile?.Y}) <{Change}>";
+            ret += Change switch
+            {
+                ChangeType.Upgrading or
+                ChangeType.Upgraded or
+                ChangeType.UpgradeStopped => $" to {NewBuilding?.Name}",
+                _ => ""
+            };
+            return ret ;
         }
     }
 }

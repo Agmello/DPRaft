@@ -1,4 +1,5 @@
 ﻿using Core.BuildingBlocks.Messaging.Observer;
+using Core.Infrastructure.Logger.Contract;
 using Core.Modules.Buildings.Domain.Contracts;
 using Core.Modules.Buildings.Domain.Events;
 using Core.Modules.Resources.Domain.Contracts;
@@ -9,9 +10,12 @@ namespace ConsoleFrontend
 {
     internal class Program
     {
+        static ILogger m_logger;
         static void Main(string[] args)
         {
             var host = DependencyInjection.AddConsoleFrontend();
+
+            m_logger = host.Services.GetService<ILogger>();
 
             var observer = host.Services.GetService<IEventObserver>();
             observer.SubscribeSafe<ResourcesChangedEvent>(ResourceChanged);
